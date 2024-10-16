@@ -3,13 +3,17 @@ Multi-Service Application
 
 ## Services
 ### Web Application
-> Work in progress
+Simple React app, with Hello World content.
+
 ### API Service
-> Work in progress
+Simple expressjs (nodejs) backend, which manage users.
+
 ### Database
 > Work in progress
+
 ### Cache
 > Work in progress
+
 ### Reverse Proxy
 > Work in progress
 
