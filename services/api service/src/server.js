@@ -18,17 +18,18 @@ app.get("/users", (req, res) => {
 })
 
 app.post("/users", (req, res) => {
-    console.log(req.body)
     const newId = users[users.length - 1].id + 1
     const newUser = {
         id: newId,
         firstName: req.body.firstName,
         lastName: req.body.lastName
     }
-
+    
     users.push(newUser)
     
-    res.send(`New user added: ${newId} '${newUser.firstName} ${newUser.lastName}'`)
+    const msg = `New user added: ${newId} '${newUser.firstName} ${newUser.lastName}'`
+    console.log(msg)
+    res.send(msg)
 })
 
 app.listen(port, (error) => {
