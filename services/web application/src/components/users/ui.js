@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { getUsers, newUser } from './service'
 
-function createUser(firstName, lastName) {
+function createUser(firstName, lastName, setUsers) {
     firstName.style.borderColor = !firstName.value ? "red" : ""
     lastName.style.borderColor = !lastName.value ? "red" : ""
 
@@ -10,19 +10,23 @@ function createUser(firstName, lastName) {
         firstName.value = ""
         lastName.value = ""
     }
+
+    // force reload
+    setTimeout(() => setUsers([]), 500)
 }
 
 export default ({ }) => {
     const [users, setUsers] = useState([])
 
-    getUsers((d) => setUsers(d))
+    if (users.length == 0)
+        getUsers((d) => setUsers(d))
 
     return <>
         <h3>Users</h3>
 
         <input id="firstName" placeholder="first name" />
         <input id="lastName" placeholder="first name" />
-        <button onClick={() => createUser(firstName, lastName)}>New User</button>
+        <button onClick={() => createUser(firstName, lastName, setUsers)}>New User</button>
         
         <table>
             <thead>
