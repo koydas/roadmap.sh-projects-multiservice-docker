@@ -14,5 +14,7 @@ Multi-Service Application
 > Work in progress
 
 ### roadmap.sh
+The goal of this project is to help you practice a more advanced docker setup involving multiple services, volumes, networks, custom base images, multi-stage builds, secrets and more. The project will simulate a real-world scenario with multiple interconnected services, each with its own build requirements and optimizations.
+
 > Delevelopped for roadmap.sh project: [multiservice-docker](https://roadmap.sh/projects/multiservice-docker)
 
