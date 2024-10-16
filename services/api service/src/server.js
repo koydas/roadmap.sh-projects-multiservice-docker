@@ -1,9 +1,11 @@
 const express = require('express');
+var cors = require('cors')
 
 const app = express();
 const port = 3000;
 
 app.use(express.json())
+app.use(cors())
 
 const users = [{
     id: 1,
@@ -16,6 +18,7 @@ app.get("/users", (req, res) => {
 })
 
 app.post("/users", (req, res) => {
+    console.log(req.body)
     const newId = users[users.length - 1].id + 1
     const newUser = {
         id: newId,
