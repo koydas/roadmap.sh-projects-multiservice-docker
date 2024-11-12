@@ -1,5 +1,6 @@
 const express = require('express');
 var cors = require('cors')
+const { MongoClient } = require("mongodb");
 
 const app = express();
 const port = 3000;
@@ -7,29 +8,30 @@ const port = 3000;
 app.use(express.json())
 app.use(cors())
 
-const users = [{
-    id: 1,
-    firstName: 'john',
-    lastName: 'doe'
-}]
+const uri = "mongodb://localhost:27017";   
+const mongoClient = new MongoClient(uri);
 
-app.get("/users", (req, res) => {
+app.get("/users", async (req, res) => {
+    await mongoClient.connect()
+
+    const users = await mongoClient.db('sh-projects-multiservice-docker')
+                                   .collection('users')
+                                        .find().toArray()
+
     res.send(users)
 })
 
-app.post("/users", (req, res) => {
-    const newId = users[users.length - 1].id + 1
+app.post("/users", async (req, res) => {
     const newUser = {
-        id: newId,
         firstName: req.body.firstName,
         lastName: req.body.lastName
     }
     
-    users.push(newUser)
-    
-    const msg = `New user added: ${newId} '${newUser.firstName} ${newUser.lastName}'`
-    console.log(msg)
-    res.send(msg)
+    await mongoClient.db('sh-projects-multiservice-docker')
+               .collection('users')
+               .insertOne(newUser)
+
+    res.send(newUser)
 })
 
 app.listen(port, (error) => {
